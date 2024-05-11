@@ -152,7 +152,7 @@ class Maze:
         current_cell = self._cells[i][j]
         end_cell = self._cells[self._num_cols - 1][self._num_rows - 1]
         current_cell.visited = True
-        # self._animate()
+        self._animate()
 
         # Base case: Check if the current cell is the end cell
         if current_cell == end_cell:
