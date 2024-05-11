@@ -138,3 +138,73 @@ class Maze:
         for col in self._cells:
             for cell in col:
                 cell.visited = False
+
+    def solve(self):
+        i = 0
+        j = 0
+        solved = self._solve_r(i, j)
+        if solved:
+            return True
+        else:
+            return False
+
+    def _solve_r(self, i, j):
+        current_cell = self._cells[i][j]
+        end_cell = self._cells[self._num_cols - 1][self._num_rows - 1]
+        current_cell.visited = True
+        # self._animate()
+
+        # Base case: Check if the current cell is the end cell
+        if current_cell == end_cell:
+            return True
+
+        # Check for possible directions
+        directions = self._check_for_cells(current_cell)
+
+        # Attempt to move in each direction
+        if "up" in directions and j > 0 and not self._cells[i][j - 1].visited:
+            next_cell = self._cells[i][j - 1]
+            current_cell.draw_move(next_cell)
+            if self._solve_r(i, j - 1):
+                return True
+            else:
+                current_cell.draw_move(next_cell, undo=True)
+
+        if "right" in directions and i < self._num_cols - 1 and not self._cells[i + 1][j].visited:
+            next_cell = self._cells[i + 1][j]
+            current_cell.draw_move(next_cell)
+            if self._solve_r(i + 1, j):
+                return True
+            else:
+                current_cell.draw_move(next_cell, undo=True)
+
+        if "bottom" in directions and j < self._num_rows - 1 and not self._cells[i][j + 1].visited:
+            next_cell = self._cells[i][j + 1]
+            current_cell.draw_move(next_cell)
+            if self._solve_r(i, j + 1):
+                return True
+            else:
+                current_cell.draw_move(next_cell, undo=True)
+
+        if "left" in directions and i > 0 and not self._cells[i - 1][j].visited:
+            next_cell = self._cells[i - 1][j]
+            current_cell.draw_move(next_cell)
+            if self._solve_r(i - 1, j):
+                return True
+            else:
+                current_cell.draw_move(next_cell, undo=True)
+
+        # If none of the directions lead to the end cell, backtrack
+        return False
+
+    def _check_for_cells(self, current_cell):
+        available_directions = []
+        if not current_cell.has_top_wall:
+            available_directions.append("up")
+        if not current_cell.has_right_wall:
+            available_directions.append("right")
+        if not current_cell.has_bottom_wall:
+            available_directions.append("bottom")
+        if not current_cell.has_left_wall:
+            available_directions.append("left")
+        return available_directions
