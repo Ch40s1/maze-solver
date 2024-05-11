@@ -21,3 +21,15 @@ When we run the file it tkinter creates a window that will hold the maze solver
 ### Requirements 
 1. Python 3.12.2
 2. tkinter 3.12.2
+
+### Future ideas
+
+* Add other solving algorithms, like breadth-first search or A*
+* Make the visuals prettier, change the colors, etc
+* Mess with the animation settings to make it faster/slower. Maybe make backtracking slow and blazing new paths faster?
+* Add configurations in the app itself using Tkinter buttons and inputs to allow users to change maze size, speed, etc
+* Make much larger mazes to solve
+* Make it a game where the user chooses directions
+* Allow the user to race an algorithm
+* Make it 3 dimensional
+* Time the various algorithms and see which ones are the fastest
